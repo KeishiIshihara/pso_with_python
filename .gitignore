@@ -1,2 +1,5 @@
 .DS_Store
 *.gif
+
+!PSO_Ackley_population_30.gif
+!PSO_Rosenbrock_population_30.gif

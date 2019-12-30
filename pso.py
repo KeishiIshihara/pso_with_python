@@ -248,10 +248,10 @@ def experiments():
 # Ackley func
 history = pso(ackley_fun, bounds=[[-32,32],[-32,32]], swarm_size=30, inertia=0.5, num_iters=50, verbose=1, func_name='Ackley Function')
 print('global best:',history['global_best'][-1], ', global best position:', history['global_best'][-1])
-visualizeHistory2D(func=ackley_fun, history=history, bounds=[[-32,32],[-32,32]], minima=[0,0], func_name='Ackley Function', save2mp4=True)
+visualizeHistory2D(func=ackley_fun, history=history, bounds=[[-32,32],[-32,32]], minima=[0,0], func_name='Ackley Function', save2mp4=False, save2gif=True,)
 # Rosenbrock func
 history = pso(rosenbrock_fun, bounds=[[-2,2],[-2,2]], swarm_size=30, inertia=0.5, num_iters=50, verbose=1, func_name='Rosenbrock Function')
 print('global best:',history['global_best_fitness'][-1], ', global best position:', history['global_best'][-1])
-visualizeHistory2D(func=rosenbrock_fun, history=history, bounds=[[-2,2],[-2,2]], minima=[1,1], func_name='Rosenbrock Function', save2mp4=True,)
+visualizeHistory2D(func=rosenbrock_fun, history=history, bounds=[[-2,2],[-2,2]], minima=[1,1], func_name='Rosenbrock Function', save2mp4=False, save2gif=True,)
 
 
