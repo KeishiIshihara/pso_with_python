@@ -12,6 +12,7 @@ from mpl_toolkits import mplot3d
 from matplotlib import animation
 import os
 
+
 def ackley_fun(x):
     """Ackley function
     Domain: -32 < xi < 32
@@ -19,33 +20,12 @@ def ackley_fun(x):
     """
     return -20 * np.exp(-.2*np.sqrt(.5*(x[0]**2 + x[1]**2))) - np.exp(.5*(np.cos(np.pi*2*x[0])+np.cos(np.pi*2*x[1]))) + np.exp(1) + 20
 
-def sphere_fun(x):
-    """Sphere function
-    Domain: -10 < xi < 10 for this case
-    Global minimum: f_min(0,..,0)=0
-    """
-    return
-
 def rosenbrock_fun(x):
     """Rosenbrock function
     Domain: -5 < xi < 5
     Global minimun: f_min(1,..,1)=0
     """
     return 100*(x[1] - x[0]**2)**2 + (x[0]-1)**2
-
-def schaffer_fun(x):
-    """Schaffer function N=2
-    Domain: -100 < x1,x2 < 100
-    Global minimun: f_min(0,0)=0
-    """
-    return
-
-def schwefel_fun(x):
-    """Schwefel function
-    Domain: -500 < xi < 500
-    Global minimun: f_min(420.9687,..,420.9687)~=-418.9829n
-    """
-    return
 
 
 def pso(func, bounds, swarm_size=10, inertia=0.5, pa=0.8, ga=0.9, 
@@ -164,14 +144,14 @@ def visualizeHistory2D(func=None, history=None, bounds=None,
     def animate(frame, history):
         # print('current frame:',frame)
         ax1.cla()
-        ax1.set_xlabel('x')
-        ax1.set_ylabel('y')
+        ax1.set_xlabel('X1')
+        ax1.set_ylabel('X2')
         ax1.set_title('{}|iter={}|Gbest=({:.5f},{:.5f})'.format(func_name,frame+1,
                       history['global_best'][frame][0], history['global_best'][frame][1]))
         ax1.set_xlim(bounds[0][0], bounds[0][1])
         ax1.set_ylim(bounds[1][0], bounds[1][1])
-        ax2.set_xlabel('generation')
-        ax2.set_ylabel('fitness')
+        ax2.set_xlabel('Iteration')
+        ax2.set_ylabel('Fitness')
         ax2.set_title('Minima Value Plot|Population={}|MinVal={:}'.format(len(history['particles'][0]),history['global_best_fitness'][frame]))
         ax2.set_xlim(2,len(history['global_best_fitness']))
         ax2.set_ylim(10e-16,10e0)
@@ -223,7 +203,8 @@ def experiments():
         ['Rosenbrock Function', 'Ackley Function']
     """
     # settings
-    save2mp4file = False
+    save2mp4 = False
+    save2gif = True
     obj_functions = [rosenbrock_fun, ackley_fun]
     obj_func_names = ['Rosenbrock Function', 'Ackley Function']
     each_boundaries = [
@@ -234,7 +215,7 @@ def experiments():
         [1,1],
         [0,0],
     ]
-    swarmsizes_for_each_trial = [5, 15, 40]
+    swarmsizes_for_each_trial = [5, 15, 35, 50]
     num_iterations = 50
 
     # experiments
@@ -254,11 +235,13 @@ def experiments():
                             bounds=bounds, 
                             minima=g_minimum, 
                             func_name=ofname, 
-                            save2mp4=save2mp4file)
+                            save2mp4=save2mp4,
+                            save2gif=save2gif)
 
 
 ## Perform experiment sets
-# experiments()
+experiments()
+
 
 
 ## If manually excutes
@@ -267,8 +250,8 @@ def experiments():
 # print('global best:',history['global_best'][-1], ', global best position:', history['global_best'][-1])
 # visualizeHistory2D(func=ackley_fun, history=history, bounds=[[-32,32],[-32,32]], minima=[0,0], func_name='Ackley Function', save2mp4=False)
 # Rosenbrock func
-history = pso(rosenbrock_fun, bounds=[[-2,2],[-2,2]], swarm_size=35, inertia=0.5, num_iters=50, verbose=0, func_name='Rosenbrock Function')
-print('global best:',history['global_best_fitness'][-1], ', global best position:', history['global_best'][-1])
-visualizeHistory2D(func=rosenbrock_fun, history=history, bounds=[[-2,2],[-2,2]], minima=[1,1], func_name='Rosenbrock Function', save2mp4=False,)
+# history = pso(rosenbrock_fun, bounds=[[-2,2],[-2,2]], swarm_size=35, inertia=0.5, num_iters=50, verbose=0, func_name='Rosenbrock Function')
+# print('global best:',history['global_best_fitness'][-1], ', global best position:', history['global_best'][-1])
+# visualizeHistory2D(func=rosenbrock_fun, history=history, bounds=[[-2,2],[-2,2]], minima=[1,1], func_name='Rosenbrock Function', save2mp4=False,)
 
 
