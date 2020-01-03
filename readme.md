@@ -2,6 +2,7 @@
 Particle Swarm Optimization with animated simulation in Python, tested to Ackley and Rosenbrock functions.  
 
 ## Simulation
+To simulate optimization, run `$python pso.py`
 Here, two examples of function being optimized
 #### Ackley function
 Global minimum at (0,0) with value of 0
