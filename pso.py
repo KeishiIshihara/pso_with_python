@@ -1,9 +1,12 @@
-# ============================================================
-#  Particle Swarm Optimization with Python and Visualization
+# =================================================================
+#  Particle Swarm Optimization with Python and animated simulation
 #  
 #  Reference: 
+#  - Particle swarm optimization - wikipedea
 #  https://en.wikipedia.org/wiki/Particle_swarm_optimization
-# ============================================================
+#  - Test functions for optimization - Wikipedia
+#  https://en.wikipedia.org/wiki/Test_functions_for_optimization
+# =================================================================
 
 from __future__ import print_function
 import numpy as np
@@ -181,7 +184,9 @@ def visualizeHistory2D(func=None, history=None, bounds=None,
         ax2.plot(x_range, global_best[0:frame+1])
         
     # title of figure
-    fig.suptitle('Particle Swarm Optimization',fontsize=20)
+    fig.suptitle('Optimizing of {} function by PSO, f_min({},{})={}'.format(func_name.split()[0],
+                                                                      minima[0],minima[1],
+                                                                      func(minima)),fontsize=20)
 
     ani = animation.FuncAnimation(fig, animate, fargs=(history,),
                     frames=len(history['particles']), interval=250, repeat=False, blit=False)
@@ -190,21 +195,23 @@ def visualizeHistory2D(func=None, history=None, bounds=None,
     if save2mp4:
         os.makedirs('mp4/', exist_ok=True)
         ani.save('mp4/PSO_{}_population_{}.mp4'.format(func_name.split()[0], len(history['particles'][0])), writer="ffmpeg", dpi=100)
+        print('A mp4 video is saved at mp4/')
     elif save2gif:
         os.makedirs('gif/', exist_ok=True)
         ani.save('gif/PSO_{}_population_{}.gif'.format(func_name.split()[0], len(history['particles'][0])), writer="imagemagick")
+        print('A gif video is saved at gif/')
     else:
         plt.show()
 
 
-def experiments():
+def experiment_suits():
     """Perform PSO Experiments
     Current test set: 
         ['Rosenbrock Function', 'Ackley Function']
     """
     # settings
     save2mp4 = False
-    save2gif = True
+    save2gif = False
     obj_functions = [rosenbrock_fun, ackley_fun]
     obj_func_names = ['Rosenbrock Function', 'Ackley Function']
     each_boundaries = [
@@ -240,18 +247,19 @@ def experiments():
 
 
 ## Perform experiment sets
-# experiments()
+# experiment_suits()
 
 
 
-## If manually excutes
-# Ackley func
+## If you want to manually excute
+## Ackley func
 history = pso(ackley_fun, bounds=[[-32,32],[-32,32]], swarm_size=30, inertia=0.5, num_iters=50, verbose=1, func_name='Ackley Function')
 print('global best:',history['global_best'][-1], ', global best position:', history['global_best'][-1])
-visualizeHistory2D(func=ackley_fun, history=history, bounds=[[-32,32],[-32,32]], minima=[0,0], func_name='Ackley Function', save2mp4=False, save2gif=True,)
-# Rosenbrock func
+visualizeHistory2D(func=ackley_fun, history=history, bounds=[[-32,32],[-32,32]], minima=[0,0], func_name='Ackley Function', save2mp4=False, save2gif=False,)
+
+## Rosenbrock func
 history = pso(rosenbrock_fun, bounds=[[-2,2],[-2,2]], swarm_size=30, inertia=0.5, num_iters=50, verbose=1, func_name='Rosenbrock Function')
 print('global best:',history['global_best_fitness'][-1], ', global best position:', history['global_best'][-1])
-visualizeHistory2D(func=rosenbrock_fun, history=history, bounds=[[-2,2],[-2,2]], minima=[1,1], func_name='Rosenbrock Function', save2mp4=False, save2gif=True,)
+visualizeHistory2D(func=rosenbrock_fun, history=history, bounds=[[-2,2],[-2,2]], minima=[1,1], func_name='Rosenbrock Function', save2mp4=False, save2gif=False,)
 
 
