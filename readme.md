@@ -1,6 +1,14 @@
 # PSO with animated simulation in Python 
-Particle Swarm Optimization with animated simulation in Python, tested to Ackley and Rosenbrock functions.
+Particle Swarm Optimization with animated simulation in Python, tested to Ackley and Rosenbrock functions.  
 
+## Simulation
+Here, two examples of function being optimized
+#### Ackley function
+Global minimum at (0,0) with value of 0
+![gif](./gif/PSO_Ackley_population_30.gif)
+#### Rosenbrock function
+Global minimum at (1,1) with value of 0
+![gif](./gif/PSO_Rosenbrock_population_30.gif)
 
 ## Referece
 1. Particle swarm optimization - Wikipedia
